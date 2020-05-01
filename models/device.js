@@ -28,6 +28,7 @@ function validateDevice(device) {
 const deviceSchema = Joi.object({
 
     platform: Joi.string().valid('iOS', 'Android'),
+    
     Os: Joi.string()
         .min(1)
         .max(10),
