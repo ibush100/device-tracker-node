@@ -19,6 +19,20 @@ const Device = mongoose.model('Device', new mongoose.Schema({
       required: true,
       minlength: 5,
       maxlength: 50
+    },
+
+    checkedOutBy: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 50
+    },
+
+    os: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 50
     }
     
   }));
@@ -29,6 +43,10 @@ const deviceSchema = Joi.object({
 
     platform: Joi.string().valid('iOS', 'Android'),
     
+    name: Joi.string()
+        .min(1)
+        .max(10),
+
     Os: Joi.string()
         .min(1)
         .max(10),
