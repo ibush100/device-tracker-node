@@ -3,6 +3,7 @@ const Joi = require('@hapi/joi');
 Joi.objectId = require('joi-objectid')(Joi)
 const mongoose = require('mongoose');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
 const express = require('express');
 const devices = require('./routes/devices');
 const app = express();
@@ -18,6 +19,7 @@ mongoose.connect('mongodb://localhost/devices')
 app.use(express.json());
 app.use('/api/devices', devices);
 app.use('/api/auth', auth); 
+app.use('/api/users', users); 
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
