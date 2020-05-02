@@ -15,8 +15,9 @@ router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  let device = new Device({ name: req.body });
-  device = await device.save();
+  let device = new Device({ device: req.body });
+  device = await device.save()
+  .catch(err => console.log(err));
   
   res.send(device); 
   });

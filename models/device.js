@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
-const Device = mongoose.model('Device', new mongoose.Schema({
+const deviceSchema =  new mongoose.Schema({
     platform: {
       type: String,
       required: true,
@@ -12,7 +12,8 @@ const Device = mongoose.model('Device', new mongoose.Schema({
     uuid: {
       type: String,
       required: true,
-      length: 36
+      length: 36,
+      unique: true
     },
     name: {
       type: String,
@@ -34,12 +35,12 @@ const Device = mongoose.model('Device', new mongoose.Schema({
       minlength: 1,
       maxlength: 50
     }
-    
-  }));
+  });
   
+  const Device = mongoose.model('Device', deviceSchema);
 
 function validateDevice(device) {
-const deviceSchema = Joi.object({
+const schema = Joi.object({
 
     platform: Joi.string().valid('iOS', 'Android'),
     
@@ -58,11 +59,11 @@ const deviceSchema = Joi.object({
         ]
     }),
 
-    chckedOutBy: Joi.string().min(3).max(50)
+    checkedOutBy: Joi.string().min(3).max(50)
 
 });
 
-return Joi.validate(device, deviceSchema); 
+return schema.validate(device); 
 
 }
 
