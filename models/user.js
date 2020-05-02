@@ -3,15 +3,6 @@ const mongoose = require('mongoose');
 const config = require('config');
 const jwt= require('jsonwebtoken');
 
-const genreSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50
-  }
-});
-
 const userSchema = new mongoose.Schema ({ 
     name: {
       type: String,
