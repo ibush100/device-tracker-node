@@ -12,11 +12,13 @@ router.get('/', auth, async (req, res) => {
 });
 
 //Create a new device
+
 router.post('/', auth, async (req, res) => {
   const { error } = validate(req.body); 
   if (error) return res.status(400).send(error.details[0].message);
 
-  let device = new Device(_.pick(req.body, ['platform']));
+  // add uuuid and the other shit
+  let device = new Device(_.pick(req.body, ['platform', 'name', 'uuid', 'os', 'checkedOutBy']));
   device = await device.save()
   .catch(err => console.log(err));
   
