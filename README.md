@@ -14,5 +14,4 @@ This folder holds the auth function for JWT validation
 
 ## Running
 Clone the repo.
-Run npm install inside where the package.json file is located to download the node modules needed.
-Run npm run test to run the tests package (or where specified in the wdio.config.js file).
+Run npm install inside where the package.json file is located to download the node modules needed
