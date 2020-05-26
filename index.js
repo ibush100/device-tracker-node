@@ -1,3 +1,5 @@
+require('express-async-errors');
+const winston = require('winston');
 const config = require('config');
 const Joi = require('@hapi/joi');
 Joi.objectId = require('joi-objectid')(Joi)
@@ -7,6 +9,8 @@ const users = require('./routes/users');
 const express = require('express');
 const devices = require('./routes/devices');
 const app = express();
+
+winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/devices'});
 
 if(!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
