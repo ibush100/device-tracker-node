@@ -10,6 +10,11 @@ const express = require('express');
 const devices = require('./routes/devices');
 const app = express();
 
+process.on('uncaughtException', (ex) => {
+  console.log('There was an uncaught exception');
+  winston.error(ex.message, ex);
+});
+
 winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/devices'});
 
 if(!config.get('jwtPrivateKey')) {
