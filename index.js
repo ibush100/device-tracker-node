@@ -13,9 +13,23 @@ const app = express();
 process.on('uncaughtException', (ex) => {
   console.log('There was an uncaught exception');
   winston.error(ex.message, ex);
+  process.exit(1);
 });
 
-winston.add(winston.transports.MongoDB, {db: 'mongodb://localhost/devices'});
+process.on('unhandledRejection', (ex) => {
+  console.log('There was an uncaught exception');
+  winston.error(ex.message, ex);
+});
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
 
 if(!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined');
